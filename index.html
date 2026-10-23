@@ -3,408 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ZenitGuard — solicitar exclusão de conta e dados do aplicativo Android.">
-    <title>Exclusão de conta e dados | ZenitGuard</title>
+    <meta name="description" content="ZenitGuard — solicitar exclusão de conta e dados pessoais.">
+    <title>Exclusão de dados | ZenitGuard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ─── TOKENS ─────────────────────────────── */
         :root {
-            --nm-base:      #E8ECF0;
-            --nm-hi:        #FFFFFF;
-            --nm-sh:        #C5CDD6;
-            --surface:      #F5F7FA;
-            --blue:         #2979FF;
-            --blue-dark:    #37474F;
-            --green:        #2E7D32;
-            --text:         #1C1B1F;
-            --muted:        #78909C;
-            --border:       rgba(0,0,0,.07);
+            --blue:   #2979FF;
+            --dark:   #37474F;
+            --text:   #1A1A2E;
+            --sub:    #64748B;
+            --border: #E2E8F0;
+            --bg:     #F8FAFC;
+            --white:  #FFFFFF;
         }
 
-        /* ─── RESET ──────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
-            background: var(--nm-base);
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--white);
             color: var(--text);
             line-height: 1.65;
+            font-size: 15px;
         }
 
-        /* ─── NAV ────────────────────────────────── */
+        /* NAV */
         nav {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(232,236,240,.85);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(0,0,0,.07);
+            border-bottom: 1px solid var(--border);
             padding: 0 24px;
-            height: 64px;
+            height: 60px;
             display: flex; align-items: center; justify-content: center;
+            position: sticky; top: 0; background: rgba(255,255,255,.92);
+            backdrop-filter: blur(12px); z-index: 10;
         }
         .nav-inner {
-            max-width: 700px; width: 100%;
+            max-width: 720px; width: 100%;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .nav-brand {
-            display: flex; align-items: center; gap: 10px;
-            font-weight: 700; font-size: 1.15rem; color: var(--blue-dark);
+        .brand {
+            display: flex; align-items: center; gap: 9px;
+            font-weight: 700; font-size: 1rem; color: var(--dark);
             text-decoration: none;
         }
-        .nav-brand svg { width: 32px; height: 32px; }
-        .nav-tag {
-            font-size: 0.78rem; color: var(--muted);
-            background: var(--surface); border: 1px solid var(--border);
-            padding: 4px 12px; border-radius: 99px;
+        .brand svg { width: 28px; height: 28px; }
+        .nav-link {
+            font-size: 0.82rem; color: var(--sub);
+            text-decoration: none; transition: color .15s;
         }
+        .nav-link:hover { color: var(--blue); }
 
-        /* ─── HERO ───────────────────────────────── */
+        /* HERO */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 72px 24px 96px;
+            border-bottom: 1px solid var(--border);
+            padding: 64px 24px 56px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
-        .hero::before {
-            content:'';
-            position: absolute; inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        .hero-logo {
+            width: 56px; height: 56px;
+            margin: 0 auto 20px;
+            display: block;
         }
-        .hero::after {
-            content:'';
-            position: absolute; bottom: -1px; left: 0; right: 0;
-            height: 48px;
-            background: var(--nm-base);
-            clip-path: ellipse(55% 100% at 50% 100%);
-        }
-        .hero-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
-
-        .shield-icon {
-            display: inline-flex;
-            margin-bottom: 24px;
-        }
-        .shield-icon svg { width: 80px; height: 80px; }
-
         .hero h1 {
-            font-size: clamp(1.75rem, 5vw, 2.4rem);
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
             font-weight: 700;
-            color: #fff;
-            line-height: 1.25;
-            margin-bottom: 12px;
-        }
-        .hero h1 span {
-            color: #FFD700;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
         }
         .hero p {
-            color: rgba(255,255,255,.8);
-            font-size: 1.05rem;
-            max-width: 440px;
+            margin-top: 12px;
+            color: var(--sub);
+            font-size: 1rem;
+            max-width: 460px;
+            margin-left: auto; margin-right: auto;
+        }
+
+        /* MAIN */
+        main {
+            max-width: 720px;
             margin: 0 auto;
+            padding: 48px 24px 80px;
         }
 
-        /* ─── LAYOUT ─────────────────────────────── */
-        .page {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 40px 20px 64px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        /* SECTION */
+        section { margin-bottom: 48px; }
+        section:last-child { margin-bottom: 0; }
+
+        .section-label {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--blue);
+            margin-bottom: 10px;
+        }
+        .section-label::after {
+            content: ''; flex: 1;
+            height: 1px; background: var(--border);
+        }
+        h2 {
+            font-size: 1.15rem; font-weight: 700;
+            color: var(--text); margin-bottom: 4px;
+        }
+        .section-desc {
+            color: var(--sub); font-size: 0.92rem; margin-bottom: 20px;
         }
 
-        /* ─── CARD NEUMÓRFICO ─────────────────────── */
-        .card {
-            background: var(--nm-base);
-            border-radius: 20px;
-            padding: 28px 26px;
-            box-shadow:
-                6px 6px 14px var(--nm-sh),
-               -6px -6px 14px var(--nm-hi);
-        }
-
-        /* ─── CARD HEAD ──────────────────────────── */
-        .card-head {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 20px;
-        }
-        .chip {
-            width: 40px; height: 40px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.15rem;
-            flex-shrink: 0;
-        }
-        .chip-blue  { background: #E3EDFF; }
-        .chip-green { background: #E6F4EA; }
-        .chip-warn  { background: #FFF8E1; }
-        .chip-red   { background: #FFEBEE; }
-        .card-head h2 {
-            font-size: 1.05rem; font-weight: 700;
-            color: var(--blue-dark);
-        }
-
-        /* ─── NOTA ───────────────────────────────── */
+        /* NOTA */
         .nota {
-            background: linear-gradient(135deg, #EEF5FF, #F3EFFF);
-            border-left: 4px solid var(--blue);
-            border-radius: 0 14px 14px 0;
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: 10px;
             padding: 16px 20px;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             line-height: 1.7;
+            margin-bottom: 48px;
         }
+        .nota strong { color: var(--dark); }
 
-        /* ─── STEPS ──────────────────────────────── */
-        .steps { list-style: none; counter-reset: s; }
-        .steps li {
-            counter-increment: s;
-            display: flex; gap: 14px; align-items: flex-start;
-            padding: 13px 0;
-            border-bottom: 1px solid rgba(0,0,0,.06);
-            font-size: 0.95rem;
+        /* STEPS */
+        .steps { list-style: none; }
+        .step {
+            display: flex; gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
         }
-        .steps li:last-child { border: 0; padding-bottom: 0; }
-        .steps li::before {
-            content: counter(s);
-            min-width: 30px; height: 30px;
-            background: linear-gradient(135deg, var(--blue), #764ba2);
-            color: #fff;
+        .step:last-child { border: none; padding-bottom: 0; }
+        .step-num {
+            width: 28px; height: 28px; min-width: 28px;
             border-radius: 50%;
+            background: var(--blue);
+            color: #fff;
+            font-size: 0.78rem; font-weight: 700;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: 700;
-            flex-shrink: 0; margin-top: 1px;
+            margin-top: 2px;
         }
+        .step-body { font-size: 0.93rem; }
+        .step-body strong { color: var(--dark); }
 
-        /* ─── BOTÃO ──────────────────────────────── */
-        .btn-wrap { margin-top: 22px; }
+        /* BOTÃO */
+        .cta {
+            margin-top: 24px;
+        }
         .btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: linear-gradient(135deg, var(--blue) 0%, #764ba2 100%);
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--blue);
             color: #fff; text-decoration: none;
-            padding: 15px 28px; border-radius: 50px;
-            font-weight: 700; font-size: 0.97rem;
-            box-shadow: 0 6px 20px rgba(41,121,255,.35);
-            transition: filter .15s, transform .15s;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600; font-size: 0.92rem;
+            transition: background .15s;
         }
-        .btn:hover { filter: brightness(1.07); transform: translateY(-2px); }
-        .btn svg { width: 19px; height: 19px; flex-shrink: 0; }
+        .btn:hover { background: #1C65E3; }
+        .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
-        /* ─── TABELA ─────────────────────────────── */
-        .tbl-wrap {
-            border-radius: 12px; overflow: hidden;
-            border: 1px solid rgba(0,0,0,.07);
+        /* TABELA */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th {
-            background: linear-gradient(135deg, #37474F, #455A64);
-            color: #fff; padding: 11px 14px; text-align: left;
-            font-size: 0.82rem; letter-spacing: .4px; text-transform: uppercase;
+        .tbl th {
+            background: var(--bg);
+            padding: 11px 16px;
+            text-align: left;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--sub);
+            letter-spacing: .3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
         }
-        td { padding: 12px 14px; border-bottom: 1px solid rgba(0,0,0,.06); }
-        tr:last-child td { border: 0; }
-        tr:nth-child(odd) td { background: var(--surface); }
-        tr:nth-child(even) td { background: var(--nm-hi); }
+        .tbl td {
+            padding: 13px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        .tbl tr:last-child td { border-bottom: none; }
+        .tbl td:first-child { font-weight: 500; color: var(--dark); }
 
-        /* ─── LISTA LIMPA ────────────────────────── */
-        ul.clean { list-style: none; }
-        ul.clean li {
-            display: flex; gap: 12px; align-items: flex-start;
-            padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,.06);
-            font-size: 0.95rem;
+        /* PILL */
+        .pill-row {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
         }
-        ul.clean li:last-child { border: 0; padding-bottom: 0; }
-        ul.clean li .dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--blue); flex-shrink: 0; margin-top: 7px;
+        .pill-row:last-child { border: none; padding-bottom: 0; }
+        .pill-dot {
+            width: 6px; height: 6px; min-width: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            margin-top: 8px;
         }
 
-        /* ─── PILL SEM LOGIN ─────────────────────── */
-        .pill-box {
-            display: flex; align-items: center; gap: 14px;
-            background: var(--surface);
-            border: 1px solid rgba(0,0,0,.07);
-            border-radius: 14px; padding: 16px 18px;
-            font-size: 0.95rem;
+        /* CALLOUT */
+        .callout {
+            display: flex; gap: 14px; align-items: flex-start;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 18px;
+            font-size: 0.92rem;
         }
-        .pill-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .callout-icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1.4; }
 
-        /* ─── FOOTER ─────────────────────────────── */
+        /* FOOTER */
         footer {
-            text-align: center; padding: 24px 20px 40px;
-            color: var(--muted); font-size: 0.82rem; line-height: 2;
+            border-top: 1px solid var(--border);
+            padding: 28px 24px;
+            text-align: center;
+            color: var(--sub);
+            font-size: 0.82rem;
+            line-height: 2;
         }
-        footer a { color: var(--muted); text-decoration: underline; }
+        footer a { color: var(--sub); text-decoration: underline; }
+        footer a:hover { color: var(--blue); }
 
-        strong { color: var(--text); }
-        a:not(.btn):not(.nav-brand) { color: var(--blue); }
-
-        @media (max-width: 500px) {
-            .card { padding: 22px 18px; }
-            th, td { padding: 10px 10px; font-size: 0.84rem; }
+        @media (max-width: 480px) {
+            .hero { padding: 48px 20px 40px; }
+            main { padding: 36px 20px 60px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- NAV -->
 <nav>
     <div class="nav-inner">
-        <a href="https://www.zenitguard.com.br" class="nav-brand">
+        <a href="https://www.zenitguard.com.br" class="brand">
             <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <defs>
-                    <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#546E7A"/>
+                    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#37474F"/>
                         <stop offset="100%" stop-color="#2979FF"/>
                     </linearGradient>
                 </defs>
-                <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#ng)"/>
+                <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#lg)"/>
                 <path d="M20 4L7 9v8c0 7.5 5.2 14.5 13 16 7.8-1.5 13-8.5 13-16V9L20 4z" fill="rgba(255,255,255,0.08)"/>
                 <path d="M12 14h10l-8 6h8v2H12l8-6H12v-2z" fill="white"/>
-                <path d="M16 24l-3-3 1.41-1.41L16 21.17l6.59-6.58L24 16l-8 8z" fill="#66BB6A"/>
+                <path d="M16 24l-3-3 1.41-1.41L16 21.17l6.59-6.58L24 16l-8 8z" fill="#2E7D32" stroke="white" stroke-width="0.5"/>
             </svg>
             ZenitGuard
         </a>
-        <span class="nav-tag">Privacidade de dados</span>
+        <a href="https://www.zenitguard.com.br/privacidade.html" class="nav-link">Política de Privacidade</a>
     </div>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero">
-    <div class="hero-inner">
-        <div class="shield-icon" aria-hidden="true">
-            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
-                        <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
-                    </linearGradient>
-                </defs>
-                <path d="M40 4L10 16v20c0 18.5 12.68 35.98 30 40 17.32-4.02 30-21.5 30-40V16L40 4z"
-                      fill="url(#hg)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
-                <path d="M24 28h20l-16 12h16v4H24l16-12H24v-4z" fill="white"/>
-                <path d="M32 48l-6-6 2.83-2.83L32 42.34l13.17-13.17L48 32l-16 16z"
-                      fill="#FFD700"/>
-            </svg>
-        </div>
-        <h1>Excluir conta e<br><span>dados pessoais</span></h1>
-        <p>Veja como solicitar a remoção dos seus dados vinculados ao <strong style="color:#fff">ZenitGuard</strong>.</p>
-    </div>
-</section>
+<!-- HERO -->
+<header class="hero">
+    <svg class="hero-logo" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+            <linearGradient id="hlg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#37474F"/>
+                <stop offset="100%" stop-color="#2979FF"/>
+            </linearGradient>
+        </defs>
+        <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#hlg)"/>
+        <path d="M20 4L7 9v8c0 7.5 5.2 14.5 13 16 7.8-1.5 13-8.5 13-16V9L20 4z" fill="rgba(255,255,255,0.08)"/>
+        <path d="M12 14h10l-8 6h8v2H12l8-6H12v-2z" fill="white"/>
+        <path d="M16 24l-3-3 1.41-1.41L16 21.17l6.59-6.58L24 16l-8 8z" fill="#2E7D32" stroke="white" stroke-width="0.5"/>
+    </svg>
+    <h1>Exclusão de conta e dados</h1>
+    <p>Saiba como solicitar a remoção dos seus dados pessoais no ZenitGuard.</p>
+</header>
 
-<!-- ── CONTEÚDO ── -->
-<main class="page">
+<main>
 
-    <!-- RESUMO -->
+    <!-- NOTA -->
     <div class="nota">
-        O ZenitGuard <strong>não exige conta</strong> para funcionar. Se você usou o <strong>login com Google</strong>, pode pedir a exclusão dos dados vinculados a esse login. Quase tudo (Cofre, scans, ajustes) fica <strong>só no celular</strong> e desaparece ao desinstalar o app.
+        O ZenitGuard <strong>não exige conta</strong> para funcionar. Se você usou o <strong>login com Google</strong>, pode pedir a exclusão desses dados. Tudo armazenado localmente (Cofre, scans, preferências) desaparece ao <strong>desinstalar o app</strong>.
     </div>
 
     <!-- COMO SOLICITAR -->
-    <div class="card">
-        <div class="card-head">
-            <span class="chip chip-blue">🗑️</span>
-            <h2>Como solicitar a exclusão</h2>
-        </div>
-        <ol class="steps">
-            <li>No app, vá em <strong>Ajustes</strong> e desconecte a conta Google (se estiver logado).</li>
-            <li>Toque no botão abaixo — o e-mail já vem com assunto e texto preenchidos.</li>
-            <li>No corpo, confirme o <strong>e-mail Google</strong> que você usou no app.</li>
-            <li>Respondemos em até <strong>30 dias</strong> confirmando a exclusão.</li>
-            <li>Para apagar os dados locais, <strong>desinstale o ZenitGuard</strong>:<br>
-                Configurações → Apps → ZenitGuard → Desinstalar.</li>
-        </ol>
-        <div class="btn-wrap">
-            <a class="btn" href="mailto:privacidade@zenitguard.com?subject=Exclus%C3%A3o%20de%20conta%20%E2%80%94%20ZenitGuard&body=Ol%C3%A1%2C%0A%0ASolicito%20a%20exclus%C3%A3o%20da%20minha%20conta%20e%20dados%20associados%20ao%20ZenitGuard.%0A%0AE-mail%20Google%20no%20app%20(se%20aplic%C3%A1vel)%3A%20%0A%0AObrigado.">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <section>
+        <p class="section-label">Passo a passo</p>
+        <h2>Como solicitar a exclusão</h2>
+        <p class="section-desc">Siga as etapas abaixo para remover sua conta e dados dos nossos serviços.</p>
+
+        <ul class="steps">
+            <li class="step">
+                <span class="step-num">1</span>
+                <div class="step-body">Abra o ZenitGuard, vá em <strong>Ajustes</strong> e desconecte a conta Google (se estiver logado).</div>
+            </li>
+            <li class="step">
+                <span class="step-num">2</span>
+                <div class="step-body">Toque no botão abaixo. O e-mail já vem com assunto e texto prontos para enviar.</div>
+            </li>
+            <li class="step">
+                <span class="step-num">3</span>
+                <div class="step-body">No corpo do e-mail, informe o <strong>endereço Google</strong> que você usou no app.</div>
+            </li>
+            <li class="step">
+                <span class="step-num">4</span>
+                <div class="step-body">Respondemos em até <strong>30 dias</strong> confirmando a exclusão.</div>
+            </li>
+            <li class="step">
+                <span class="step-num">5</span>
+                <div class="step-body">Para apagar dados do celular, <strong>desinstale o ZenitGuard</strong> em Configurações → Apps → ZenitGuard → Desinstalar.</div>
+            </li>
+        </ul>
+
+        <div class="cta">
+            <a class="btn" href="mailto:privacidade@zenitguard.com?subject=Exclus%C3%A3o%20de%20conta%20%E2%80%94%20ZenitGuard&body=Ol%C3%A1%2C%0A%0ASolicito%20a%20exclus%C3%A3o%20da%20minha%20conta%20e%20dados%20do%20ZenitGuard.%0A%0AE-mail%20Google%20no%20app%3A%20%0A%0AObrigado.">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2"/>
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                 </svg>
                 Enviar e-mail aos administradores
             </a>
         </div>
-    </div>
+    </section>
 
     <!-- O QUE É EXCLUÍDO -->
-    <div class="card">
-        <div class="card-head">
-            <span class="chip chip-green">✅</span>
-            <h2>O que é excluído</h2>
-        </div>
-        <div class="tbl-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Dado</th>
-                        <th>Quando é excluído</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Login Google (Firebase)</strong></td>
-                        <td>Após confirmarmos seu e-mail (até 30 dias)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cofre, preferências, listas locais</strong></td>
-                        <td>Ao desinstalar o app</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Analytics Firebase</strong></td>
-                        <td>Conforme política de retenção do Google</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <section>
+        <p class="section-label">Dados removidos</p>
+        <h2>O que é excluído</h2>
+        <p class="section-desc">Dependendo de como você usa o app, estes são os dados que removemos:</p>
+
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>Dado</th>
+                    <th>Quando é excluído</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Login Google (Firebase)</td>
+                    <td>Após confirmarmos seu e-mail — até 30 dias</td>
+                </tr>
+                <tr>
+                    <td>Cofre, preferências e listas locais</td>
+                    <td>Ao desinstalar o app</td>
+                </tr>
+                <tr>
+                    <td>Dados de uso anônimos (Firebase Analytics)</td>
+                    <td>Conforme política de retenção do Google</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
     <!-- O QUE PERMANECE -->
-    <div class="card">
-        <div class="card-head">
-            <span class="chip chip-warn">⚠️</span>
-            <h2>O que pode permanecer</h2>
-        </div>
-        <ul class="clean">
-            <li>
-                <span class="dot"></span>
-                <span>Cópia do pedido de exclusão por e-mail por até <strong>2 anos</strong>, apenas para registro legal (LGPD).</span>
-            </li>
-            <li>
-                <span class="dot"></span>
+    <section>
+        <p class="section-label">Retenção</p>
+        <h2>O que pode permanecer</h2>
+        <p class="section-desc">Alguns dados podem ser mantidos por obrigação legal ou por terceiros:</p>
+
+        <div>
+            <div class="pill-row">
+                <span class="pill-dot"></span>
+                <span>Cópia do pedido de exclusão por e-mail por até <strong>2 anos</strong>, para registro legal (LGPD).</span>
+            </div>
+            <div class="pill-row">
+                <span class="pill-dot"></span>
                 <span>Sua <strong>conta Google</strong> não é encerrada por nós — use as ferramentas da Google para isso.</span>
-            </li>
-            <li>
-                <span class="dot"></span>
-                <span>Hashes de arquivo enviados ao VirusTotal seguem a política da própria VirusTotal (não identificam o usuário).</span>
-            </li>
-        </ul>
-    </div>
+            </div>
+            <div class="pill-row">
+                <span class="pill-dot"></span>
+                <span>Hashes de arquivo enviados ao VirusTotal seguem a política da própria VirusTotal (não identificam o usuário pessoalmente).</span>
+            </div>
+        </div>
+    </section>
 
     <!-- SEM LOGIN -->
-    <div class="card">
-        <div class="card-head">
-            <span class="chip chip-red">📵</span>
-            <h2>Nunca usou o login?</h2>
+    <section>
+        <p class="section-label">Sem conta</p>
+        <h2>Nunca usou o login?</h2>
+
+        <div class="callout">
+            <span class="callout-icon">📱</span>
+            <span>Se você nunca entrou com Google, não há conta nos nossos servidores. Basta <strong>desinstalar o ZenitGuard</strong> para apagar todos os dados que ficam no aparelho.</span>
         </div>
-        <div class="pill-box">
-            <span class="pill-icon">📱</span>
-            <span>Se você não entrou com Google, não há conta nos nossos servidores. Basta <strong>desinstalar o ZenitGuard</strong> para apagar tudo que fica no aparelho.</span>
-        </div>
-    </div>
+    </section>
 
 </main>
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
+    <p><strong>ZenitGuard</strong> · Proteção e limpeza para Android</p>
     <p>
-        <svg style="width:16px;height:16px;vertical-align:middle;margin-right:4px" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#546E7A"/><stop offset="100%" stop-color="#2979FF"/></linearGradient></defs>
-            <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#fg)"/>
-            <path d="M12 14h10l-8 6h8v2H12l8-6H12v-2z" fill="white"/>
-        </svg>
-        <strong>ZenitGuard</strong> — Proteção e limpeza para Android
+        Dúvidas: <a href="mailto:privacidade@zenitguard.com">privacidade@zenitguard.com</a> ·
+        <a href="https://www.zenitguard.com.br/privacidade.html">Política de Privacidade</a>
     </p>
-    <p>Dúvidas: <a href="mailto:privacidade@zenitguard.com">privacidade@zenitguard.com</a></p>
-    <p><a href="https://www.zenitguard.com.br/privacidade.html">Política de Privacidade</a> · Atualizado em outubro de 2026</p>
+    <p style="margin-top:4px">© 2026 ZenitGuard. Todos os direitos reservados.</p>
 </footer>
 
 </body>
