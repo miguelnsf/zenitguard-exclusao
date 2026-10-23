@@ -5,158 +5,324 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ZenitGuard — solicitar exclusão de conta e dados do aplicativo Android.">
     <title>Exclusão de conta e dados | ZenitGuard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #37474F;
-            --accent: #2979FF;
-            --text: #1C1B1F;
-            --muted: #78909C;
-            --bg: #E8ECF0;
-            --card: #fff;
+            --primary:    #37474F;
+            --accent:     #2979FF;
+            --green:      #2E7D32;
+            --bg:         #E8ECF0;
+            --card:       #F5F7FA;
+            --text:       #1C1B1F;
+            --muted:      #78909C;
+            --border:     #D6DCE4;
         }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.65;
-            color: var(--text);
+            font-family: 'Atkinson Hyperlegible', system-ui, sans-serif;
             background: var(--bg);
-            padding: 24px 16px 48px;
+            color: var(--text);
+            min-height: 100vh;
         }
-        .wrap { max-width: 640px; margin: 0 auto; }
+
+        /* ── HEADER ── */
         header {
+            background: linear-gradient(135deg, var(--primary) 0%, #263238 100%);
+            padding: 48px 20px 56px;
             text-align: center;
-            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
         }
-        .logo { width: 56px; height: 56px; margin-bottom: 12px; }
-        h1 { color: var(--primary); font-size: 1.65rem; font-weight: 700; }
-        .tag { color: var(--muted); font-size: 0.95rem; margin-top: 6px; }
-        main {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 28px 24px;
-            box-shadow: 0 8px 28px rgba(0,0,0,.08);
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 32px;
+            background: var(--bg);
+            clip-path: ellipse(55% 100% at 50% 100%);
         }
-        h2 {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin: 24px 0 10px;
-            padding-top: 8px;
-            border-top: 1px solid #eee;
+        .logo-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
-        h2:first-child { margin-top: 0; border: 0; padding-top: 0; }
-        ol, ul { margin: 8px 0 8px 1.25rem; }
-        li { margin-bottom: 6px; }
-        .btn {
+        .logo-wrap svg {
+            width: 64px;
+            height: 64px;
+        }
+        header h1 {
+            color: #fff;
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -.3px;
+        }
+        header p {
+            color: rgba(255,255,255,.65);
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+        .badge {
             display: inline-block;
+            background: rgba(41,121,255,.25);
+            border: 1px solid rgba(41,121,255,.45);
+            color: #90CAF9;
+            font-size: 0.78rem;
+            padding: 4px 12px;
+            border-radius: 99px;
             margin-top: 12px;
-            padding: 14px 22px;
-            background: var(--accent);
-            color: #fff !important;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
+            letter-spacing: .4px;
+        }
+
+        /* ── LAYOUT ── */
+        .page { max-width: 660px; margin: 0 auto; padding: 32px 16px 56px; }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card);
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .card-title .icon {
+            width: 34px; height: 34px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
             font-size: 1rem;
         }
-        .btn:hover { filter: brightness(1.05); }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
-            margin-top: 10px;
+        .icon-blue  { background: #E3F0FF; }
+        .icon-green { background: #E8F5E9; }
+        .icon-warn  { background: #FFF3E0; }
+        .icon-red   { background: #FFEBEE; }
+
+        /* ── NOTA RESUMO ── */
+        .nota {
+            background: #E3F0FF;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
+
+        /* ── STEPS ── */
+        .steps { list-style: none; counter-reset: step; }
+        .steps li {
+            counter-increment: step;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .steps li:last-child { border-bottom: none; padding-bottom: 0; }
+        .steps li::before {
+            content: counter(step);
+            min-width: 28px; height: 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── BOTÃO ── */
+        .btn-wrap { margin-top: 20px; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.97rem;
+            transition: filter .15s;
+        }
+        .btn:hover { filter: brightness(1.08); }
+        .btn svg { width: 20px; height: 20px; }
+
+        /* ── TABELA ── */
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
         th, td {
-            border: 1px solid #e8e8e8;
-            padding: 8px 10px;
+            border: 1px solid var(--border);
+            padding: 10px 12px;
             text-align: left;
             vertical-align: top;
         }
-        th { background: #f5f7fa; color: var(--primary); }
-        .note {
-            background: #f5f7fa;
-            border-left: 4px solid var(--accent);
-            padding: 14px 16px;
-            border-radius: 0 10px 10px 0;
-            margin-bottom: 8px;
+        th { background: #EEF2F7; color: var(--primary); font-weight: 700; }
+        tr:nth-child(even) td { background: #F9FAFB; }
+
+        /* ── LISTA ── */
+        ul.clean { list-style: none; padding: 0; }
+        ul.clean li {
+            display: flex;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
             font-size: 0.95rem;
         }
+        ul.clean li:last-child { border-bottom: none; }
+        ul.clean li::before {
+            content: '•';
+            color: var(--accent);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            flex-shrink: 0;
+        }
+
+        /* ── FOOTER ── */
         footer {
             text-align: center;
-            margin-top: 24px;
+            padding: 0 16px 40px;
             color: var(--muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+            line-height: 1.8;
         }
+        footer a { color: var(--muted); text-decoration: underline; }
+
         a { color: var(--accent); }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.5rem; }
+            .card { padding: 22px 16px; }
+        }
     </style>
 </head>
 <body>
-    <div class="wrap">
-        <header>
-            <svg class="logo" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-wrap">
+            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <defs>
                     <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#37474F"/>
+                        <stop offset="0%" stop-color="#546E7A"/>
                         <stop offset="100%" stop-color="#2979FF"/>
                     </linearGradient>
                 </defs>
                 <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#g)"/>
+                <path d="M20 4L7 9v8c0 7.5 5.2 14.5 13 16 7.8-1.5 13-8.5 13-16V9L20 4z" fill="rgba(255,255,255,0.08)"/>
                 <path d="M12 14h10l-8 6h8v2H12l8-6H12v-2z" fill="white"/>
+                <path d="M16 24l-3-3 1.41-1.41L16 21.17l6.59-6.58L24 16l-8 8z" fill="#66BB6A"/>
             </svg>
-            <h1>ZenitGuard</h1>
-            <p class="tag">Exclusão de conta e dados · Android · com.zenitguard.app</p>
-        </header>
+        </div>
+        <h1>ZenitGuard</h1>
+        <p>Exclusão de conta e dados pessoais</p>
+        <span class="badge">Android · com.zenitguard.app</span>
+    </header>
 
-        <main>
-            <div class="note">
-                O ZenitGuard <strong>não exige conta</strong> para usar. Se você entrou com <strong>Google</strong>, pode pedir a remoção dos dados ligados a esse login. Quase tudo (Cofre, scans, ajustes) fica só no celular e some ao <strong>desinstalar</strong> o app.
+    <div class="page">
+
+        <!-- NOTA RESUMO -->
+        <div class="nota">
+            O ZenitGuard <strong>não exige conta</strong> para funcionar. Se você usou o <strong>login com Google</strong>, pode pedir a exclusão dos dados vinculados a esse login nos nossos serviços. Quase tudo (Cofre, scans, ajustes) fica <strong>só no seu celular</strong> e é apagado ao desinstalar o app.
+        </div>
+
+        <!-- COMO SOLICITAR -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-blue">🗑️</span>
+                Como solicitar a exclusão
             </div>
-
-            <h2>Como solicitar</h2>
-            <ol>
-                <li>No app: <strong>Ajustes</strong> → sair / desconectar a conta Google (se estiver logado).</li>
-                <li>Envie um e-mail para os administradores (botão abaixo).</li>
-                <li>No e-mail, informe o <strong>e-mail da conta Google</strong> usada no app e que deseja excluir os dados do ZenitGuard nos nossos serviços.</li>
-                <li>Resposta em até <strong>30 dias</strong> confirmando a exclusão.</li>
-                <li>Desinstale o ZenitGuard para apagar os dados que ficam no aparelho.</li>
+            <ol class="steps">
+                <li>No app: vá em <strong>Ajustes</strong> e desconecte a conta Google (se estiver logado).</li>
+                <li>Envie um e-mail usando o botão abaixo. O assunto e o texto já vêm preenchidos.</li>
+                <li>No e-mail, confirme o <strong>endereço Google</strong> usado no app (se houver).</li>
+                <li>Respondemos em até <strong>30 dias</strong> confirmando a exclusão.</li>
+                <li>Para apagar os dados que ficam no celular, <strong>desinstale o ZenitGuard</strong> em Configurações → Apps → ZenitGuard.</li>
             </ol>
-            <a class="btn" href="mailto:privacidade@zenitguard.com?subject=Exclus%C3%A3o%20de%20conta%20%E2%80%94%20ZenitGuard&amp;body=Ol%C3%A1%2C%0A%0ASolicito%20a%20exclus%C3%A3o%20da%20minha%20conta%20e%20dados%20associados%20ao%20ZenitGuard.%0A%0AE-mail%20da%20conta%20Google%20no%20app%20%28se%20aplic%C3%A1vel%29%3A%20%0A%0AObrigado.">Enviar e-mail aos administradores</a>
 
-            <h2>O que é excluído</h2>
+            <div class="btn-wrap">
+                <a class="btn" href="mailto:privacidade@zenitguard.com?subject=Exclus%C3%A3o%20de%20conta%20%E2%80%94%20ZenitGuard&body=Ol%C3%A1%2C%0A%0ASolicito%20a%20exclus%C3%A3o%20da%20minha%20conta%20e%20dados%20associados%20ao%20ZenitGuard.%0A%0AE-mail%20da%20conta%20Google%20no%20app%20(se%20aplic%C3%A1vel)%3A%20%0A%0AObrigado.">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    Enviar e-mail aos administradores
+                </a>
+            </div>
+        </div>
+
+        <!-- O QUE É EXCLUÍDO -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-green">✅</span>
+                O que é excluído
+            </div>
             <table>
                 <tr>
                     <th>Dado</th>
-                    <th>Exclusão</th>
+                    <th>Quando é excluído</th>
                 </tr>
                 <tr>
-                    <td>Login Google (Firebase)</td>
-                    <td>Após confirmarmos seu e-mail</td>
+                    <td>Login Google vinculado (Firebase)</td>
+                    <td>Após confirmarmos seu e-mail (até 30 dias)</td>
                 </tr>
                 <tr>
-                    <td>Cofre, preferências, listas locais</td>
-                    <td>Ao desinstalar o app</td>
+                    <td>Cofre de senhas, preferências, listas locais</td>
+                    <td>Ao desinstalar o app do celular</td>
                 </tr>
                 <tr>
-                    <td>Analytics Firebase</td>
-                    <td>Conforme processamento + políticas Google</td>
+                    <td>Dados de uso anônimos (Firebase Analytics)</td>
+                    <td>Conforme política do Google Firebase</td>
                 </tr>
             </table>
+        </div>
 
-            <h2>O que pode permanecer</h2>
-            <ul>
-                <li>Cópia do seu pedido por e-mail (até <strong>2 anos</strong>), só para registro legal.</li>
-                <li>Sua <strong>conta Google</strong> não é apagada por nós — use as ferramentas da Google se quiser encerrá-la.</li>
+        <!-- O QUE PERMANECE -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-warn">⚠️</span>
+                O que pode permanecer
+            </div>
+            <ul class="clean">
+                <li>Cópia do seu pedido por e-mail por até <strong>2 anos</strong>, apenas como registro legal (LGPD).</li>
+                <li>Sua <strong>conta Google</strong> não é apagada por nós — use as ferramentas da Google para isso.</li>
+                <li>Hashes de arquivo enviados ao VirusTotal seguem a política própria da VirusTotal (não são dados pessoais).</li>
             </ul>
+        </div>
 
-            <h2>Sem login Google</h2>
-            <p>Não há conta no servidor. Basta <strong>desinstalar</strong> o aplicativo.</p>
-
-            <p style="margin-top:20px;font-size:0.9rem;color:var(--muted);">
-                Contato: <a href="mailto:privacidade@zenitguard.com">privacidade@zenitguard.com</a>
+        <!-- SEM LOGIN -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-red">📵</span>
+                Nunca fez login?
+            </div>
+            <p style="font-size:.95rem;line-height:1.7;">
+                Se você não usou o login com Google, não há conta nos nossos servidores. Basta <strong>desinstalar o ZenitGuard</strong> para apagar todos os dados que ficam no aparelho (Cofre, histórico de scans, preferências).
             </p>
-        </main>
+        </div>
 
-        <footer>
-            ZenitGuard · Atualizado em 20 de outubro de 2026
-        </footer>
-    </div>
+    </div><!-- /page -->
+
+    <footer>
+        <p>ZenitGuard · Proteção e limpeza para Android</p>
+        <p>Contato: <a href="mailto:privacidade@zenitguard.com">privacidade@zenitguard.com</a></p>
+        <p>Atualizado em 22 de outubro de 2026</p>
+    </footer>
+
 </body>
 </html>
