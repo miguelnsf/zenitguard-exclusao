@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZenitGuard — solicitar exclusão de conta e dados do aplicativo Android.">
+    <title>Exclusão de conta e dados | ZenitGuard</title>
+    <style>
+        :root {
+            --primary: #37474F;
+            --accent: #2979FF;
+            --text: #1C1B1F;
+            --muted: #78909C;
+            --bg: #E8ECF0;
+            --card: #fff;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.65;
+            color: var(--text);
+            background: var(--bg);
+            padding: 24px 16px 48px;
+        }
+        .wrap { max-width: 640px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .logo { width: 56px; height: 56px; margin-bottom: 12px; }
+        h1 { color: var(--primary); font-size: 1.65rem; font-weight: 700; }
+        .tag { color: var(--muted); font-size: 0.95rem; margin-top: 6px; }
+        main {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px 24px;
+            box-shadow: 0 8px 28px rgba(0,0,0,.08);
+        }
+        h2 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin: 24px 0 10px;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+        }
+        h2:first-child { margin-top: 0; border: 0; padding-top: 0; }
+        ol, ul { margin: 8px 0 8px 1.25rem; }
+        li { margin-bottom: 6px; }
+        .btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 14px 22px;
+            background: var(--accent);
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .btn:hover { filter: brightness(1.05); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #e8e8e8;
+            padding: 8px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background: #f5f7fa; color: var(--primary); }
+        .note {
+            background: #f5f7fa;
+            border-left: 4px solid var(--accent);
+            padding: 14px 16px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <svg class="logo" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#37474F"/>
+                        <stop offset="100%" stop-color="#2979FF"/>
+                    </linearGradient>
+                </defs>
+                <path d="M20 2L5 8v10c0 9.25 6.34 17.99 15 20 8.66-2.01 15-10.75 15-20V8L20 2z" fill="url(#g)"/>
+                <path d="M12 14h10l-8 6h8v2H12l8-6H12v-2z" fill="white"/>
+            </svg>
+            <h1>ZenitGuard</h1>
+            <p class="tag">Exclusão de conta e dados · Android · com.zenitguard.app</p>
+        </header>
+
+        <main>
+            <div class="note">
+                O ZenitGuard <strong>não exige conta</strong> para usar. Se você entrou com <strong>Google</strong>, pode pedir a remoção dos dados ligados a esse login. Quase tudo (Cofre, scans, ajustes) fica só no celular e some ao <strong>desinstalar</strong> o app.
+            </div>
+
+            <h2>Como solicitar</h2>
+            <ol>
+                <li>No app: <strong>Ajustes</strong> → sair / desconectar a conta Google (se estiver logado).</li>
+                <li>Envie um e-mail para os administradores (botão abaixo).</li>
+                <li>No e-mail, informe o <strong>e-mail da conta Google</strong> usada no app e que deseja excluir os dados do ZenitGuard nos nossos serviços.</li>
+                <li>Resposta em até <strong>30 dias</strong> confirmando a exclusão.</li>
+                <li>Desinstale o ZenitGuard para apagar os dados que ficam no aparelho.</li>
+            </ol>
+            <a class="btn" href="mailto:privacidade@zenitguard.com?subject=Exclus%C3%A3o%20de%20conta%20%E2%80%94%20ZenitGuard&amp;body=Ol%C3%A1%2C%0A%0ASolicito%20a%20exclus%C3%A3o%20da%20minha%20conta%20e%20dados%20associados%20ao%20ZenitGuard.%0A%0AE-mail%20da%20conta%20Google%20no%20app%20%28se%20aplic%C3%A1vel%29%3A%20%0A%0AObrigado.">Enviar e-mail aos administradores</a>
+
+            <h2>O que é excluído</h2>
+            <table>
+                <tr>
+                    <th>Dado</th>
+                    <th>Exclusão</th>
+                </tr>
+                <tr>
+                    <td>Login Google (Firebase)</td>
+                    <td>Após confirmarmos seu e-mail</td>
+                </tr>
+                <tr>
+                    <td>Cofre, preferências, listas locais</td>
+                    <td>Ao desinstalar o app</td>
+                </tr>
+                <tr>
+                    <td>Analytics Firebase</td>
+                    <td>Conforme processamento + políticas Google</td>
+                </tr>
+            </table>
+
+            <h2>O que pode permanecer</h2>
+            <ul>
+                <li>Cópia do seu pedido por e-mail (até <strong>2 anos</strong>), só para registro legal.</li>
+                <li>Sua <strong>conta Google</strong> não é apagada por nós — use as ferramentas da Google se quiser encerrá-la.</li>
+            </ul>
+
+            <h2>Sem login Google</h2>
+            <p>Não há conta no servidor. Basta <strong>desinstalar</strong> o aplicativo.</p>
+
+            <p style="margin-top:20px;font-size:0.9rem;color:var(--muted);">
+                Contato: <a href="mailto:privacidade@zenitguard.com">privacidade@zenitguard.com</a>
+            </p>
+        </main>
+
+        <footer>
+            ZenitGuard · Atualizado em 20 de outubro de 2026
+        </footer>
+    </div>
+</body>
+</html>
